@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// UIテキストの管理をするためのクラス
 public class TextManager : MonoBehaviour {
 
 	public string GetText()
@@ -15,6 +16,7 @@ public class TextManager : MonoBehaviour {
 		this.GetComponent<Text>().text = text;
 	}
 
+	// 表示・非表示
 	public void EnableText(bool enabled)
 	{
 		GetComponent<Text>().enabled = enabled;

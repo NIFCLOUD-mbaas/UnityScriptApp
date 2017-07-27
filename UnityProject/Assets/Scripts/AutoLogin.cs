@@ -15,12 +15,6 @@ public class AutoLogin : MonoBehaviour
 	//---------------------------------------------------------------------------------------------
 	IEnumerator Start ()
 	{
-		// 以下の２行はデバッグ用 (Unityに保存された_user_name_と_pass_word_を削除する)
-		//PlayerPrefs.SetString("_user_name_", "");
-		//PlayerPrefs.SetString("_pass_word_", "");
-		
-		// UnityのウィンドウのNCMBタブからCurrentUserをクリアする (ログアウト状態になる，NCMB3.0からの機能)ことができる
-
 		// Unity(端末)に保存された `ユーザ名` と `パスワード` を取得 (保存されていない場合は空文字で初期化)
 		string userName = PlayerPrefs.GetString("_user_name_", "");
 		string password = PlayerPrefs.GetString("_pass_word_", "");
@@ -28,6 +22,7 @@ public class AutoLogin : MonoBehaviour
 		// Unityにユーザ情報が保存されているか
 		if(userName == ""){
 			// 保存なし -> ユーザ登録処理
+			Debug.Log("No User Info on Unity");
 			yield return StartCoroutine(userRegistrationCoroutine());
 
 		}else{
