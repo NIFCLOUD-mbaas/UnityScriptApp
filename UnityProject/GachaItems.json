@@ -1,0 +1,19 @@
+{
+    "results":[
+        {
+            "cost":300,
+            "rewards":[1000,500,100],
+            "probability":[0.2,0.4]
+        },
+        {
+            "cost":500,
+            "rewards":[600,500,400],
+            "probability":[0.3,0.4]
+        },
+        {
+            "cost":1000,
+            "rewards":[10000,1000,0],
+            "probability":[0.1,0.1]
+        } 
+    ]
+}
