@@ -235,7 +235,6 @@ layout: false
 * オートログイン機能は__`Assets\Scripts\AutoLogin.cs`__で実現されています
 
 ```cs
-ユーザ情報が保存されているか
 if(/*ユーザ情報が保存されていない*/){
     /* ユーザ登録処理 */
 }else{
@@ -437,7 +436,7 @@ var gachaId = req.query.gachaId;
 if(gachaId == null){
     // ガチャIDがない → エラー処理
     res.status(400)
-       .json({"message":"BadRequest (No gachaId)"})
+       .json({"message":"BadRequest (No gachaId)"});
 }
 ```
 
@@ -469,7 +468,7 @@ gachaClass.equalTo("objectId", gachaId)
     // 成功処理
     /* ここから コピペ */
     if(results.length == 0){
-        res.status(404
+        res.status(404)
            .json({"message":"NotFound (Confirm objectId)"});
     }
     //--------------------------------------------------------------
