@@ -175,21 +175,13 @@ layout: false
 * [mBaaS](http://mb.cloud.nifty.com)のダッシュボードを開きます
 * 画面の左上にある「新しいアプリ」ボタンをクリックし、新規作成画面を開きます
 * アプリ名は __`20170726_gachaApp`__ とします
+* `新規作成`ボタンをクリックしてアプリを作成します
 
 .center[<img src="readme-image/mbaas-app-create.png" width="750">]
 
 ---
-### 【mBaaSの準備】アプリAPIキーの作成
-
-* `新規作成`ボタンをクリックしてアプリを作成します
-* APIキーの画面で__`アプリケーションキー`__と__`クライアントキー`__を確認できます
-* `コピー`ボタンをクリックするとキーをコピーすることができます
-
-.center[<img src="readme-image/hierachy-newobject-inspector-key.png" width="600">]
-
----
 ### 【mBaaSの準備】UnitySDKにアプリAPIキーを設定する
-
+* APIキーの画面で`コピー`ボタンをクリックすると __`アプリケーションキー`__と__`クライアントキー`__をコピーすることができます
 * Unity画面で __`NCMBSettings.cs(Script)`__コンポーネントの入力欄に、以下の2つのAPIキーをそれぞれ入力します
     - __Application Key__欄 : アプリケーションキー
     - __Client Key__欄 : クライアントキー
@@ -243,7 +235,7 @@ layout: false
 * オートログイン機能は__`Assets\Scripts\AutoLogin.cs`__で実現されています
 
 ```cs
-オートログイン機能n説明【実装済み】にユーザ情報が保存されているか
+ユーザ情報が保存されているか
 if(/*ユーザ情報が保存されていない*/){
     /* ユーザ登録処理 */
 }else{
