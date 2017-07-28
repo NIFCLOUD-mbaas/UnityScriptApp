@@ -703,6 +703,7 @@ layout: false
 ### 【スクリプトでの実装】データストア接続準備
 * gacha.jsを書き換えてログの保存機能を付け加えます
 * データストアにログを保存する準備をします
+
 ```js
 //--------------------------------------------------------------
 // 4. ガチャの結果が得られたらそのログを保存する
@@ -712,14 +713,14 @@ var userId = req.query.userId;
 if(userId == null){
     // ユーザIDが渡されていない
     res.status(400)
-       .json({"message":"BadRequest (No userId)"})
+       .json({"message":"BadRequest (No userId)"});
 }
 
 // "GachaLog"クラスのインスタンスを生成
 var GachaLogClass = ncmb.DataStore("GachaLog");
 var gachaLogClass = new GachaLogClass();
-
 ```
+
 ---
 ### 【スクリプトでの実装】データストアにログを保存
 * ログの保存を実行します
