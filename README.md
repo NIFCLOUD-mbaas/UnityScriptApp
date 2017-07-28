@@ -522,8 +522,7 @@ var moneyDiff = -results[0].cost;
 var pointDiff = results[0].rewards[rewardNum];
 res.status(200)
     .json({"moneyDiff":moneyDiff,
-           "pointDiff":pointDiff,
-           "saveLogMessage":""});
+           "pointDiff":pointDiff});
 ```
 
 ---
@@ -587,7 +586,6 @@ private IEnumerator executeScriptCoroutine(string gachaId, NCMBObject currUser)
 // (1) スクリプトからのレスポンスを格納するメンバ変数の初期化
 scriptResponse.pointDiff = 0;
 scriptResponse.moneyDiff = 0;
-scriptResponse.saveLogMessage = "";
 ```
 
 ---
@@ -603,8 +601,6 @@ public struct ScriptResponse
     public int pointDiff;
     // お金の変化量
     public int moneyDiff;
-    // ログ保存に関するメッセージ
-    public string saveLogMessage;
 }
 ```
 
@@ -645,7 +641,6 @@ gachaLogicScript.ExecuteAsync(null, null, query, (byte[] result, NCMBException e
         // スクリプト実行成功(JSONをパースして "scriptResponse" に格納)
         string resultStr = System.Text.Encoding.ASCII.GetString(result);
         scriptResponse = JsonUtility.FromJson<ScriptResponse>(resultStr);
-        Debug.Log(scriptResponse.saveLogMessage);
     }
 });
 ```
@@ -716,11 +711,10 @@ layout: false
 var userId = req.query.userId;
 if(userId == null){
     // ユーザIDが渡されていない
-    res.status(207)
-       .json({"moneyDiff":moneyDiff,
-              "pointDiff":pointDiff,
-              "saveLogMessage":"Failed to save log (400: No userId)"});
+    res.status(400)
+       .json({"message":"BadRequest (No userId)"})
 }
+
 // "GachaLog"クラスのインスタンスを生成
 var GachaLogClass = ncmb.DataStore("GachaLog");
 var gachaLogClass = new GachaLogClass();
@@ -751,8 +745,7 @@ gachaLogClass.set("moneyDiff", moneyDiff)
     /* ここから */
     res.status(200)
        .json({"moneyDiff":moneyDiff,
-              "pointDiff":pointDiff,
-              "saveLogMessage":"Succeeded to save log"});
+              "pointDiff":pointDiff});
     /* ここまで */
 })
 ```
@@ -761,12 +754,8 @@ gachaLogClass.set("moneyDiff", moneyDiff)
 ```js
 .catch(function(err){
     // 失敗処理
-    /* ここから */
-    res.status(207)
-       .json({"moneyDiff":moneyDiff,
-              "pointDiff":pointDiff,
-              "saveLogMessage":"Failed to save log"});
-    /* ここまで */
+    /* 以下の１行をコピペ */
+    res.status(500).json({"message":"Failed to save log"});
 });
 ```
 ---
@@ -781,8 +770,7 @@ var pointDiff = results[0].rewards[rewardNum];
 /* ここから */
 res.status(200)
    .json({"moneyDiff":moneyDiff,
-          "pointDiff":pointDiff,
-          "saveLogMessage":""});
+          "pointDiff":pointDiff});
 /* ここまで 削除orコメントアウト */
 ```
 
