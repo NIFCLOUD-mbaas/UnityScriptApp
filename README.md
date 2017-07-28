@@ -703,7 +703,7 @@ layout: false
 ### 【スクリプトでの実装】データストア接続準備
 * gacha.jsを書き換えてログの保存機能を付け加えます
 * データストアにログを保存する準備をします
-```cs
+```js
 //--------------------------------------------------------------
 // 4. ガチャの結果が得られたらそのログを保存する
 //--------------------------------------------------------------
@@ -718,11 +718,12 @@ if(userId == null){
 // "GachaLog"クラスのインスタンスを生成
 var GachaLogClass = ncmb.DataStore("GachaLog");
 var gachaLogClass = new GachaLogClass();
+
 ```
 ---
 ### 【スクリプトでの実装】データストアにログを保存
 * ログの保存を実行します
-```cs
+```js
 // ログ保存を実行
 gachaLogClass.set("moneyDiff", moneyDiff)
              .set("pointDiff", pointDiff)
