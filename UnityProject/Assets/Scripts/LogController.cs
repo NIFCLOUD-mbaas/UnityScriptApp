@@ -56,7 +56,9 @@ public class LogController : MonoBehaviour
 				Debug.Log("Success(Getting the gacha log)");
 				// 取得したデータから必要なものだけ取り出す: response(List<NCMBObject>) -> logList(GachaLog[])
 				for(int i = 0; i < response.Count; i++){
+					System.DateTime date = (System.DateTime)(response[i].CreateDate);
 					logList[i].date = (response[i].CreateDate).ToString();
+					logList[i].date = date.AddHours(9.0).ToString();
 					logList[i].moneyDiff = System.Convert.ToInt32(response[i]["moneyDiff"]);
 					logList[i].pointDiff = System.Convert.ToInt32(response[i]["pointDiff"]);
 				}

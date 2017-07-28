@@ -12,7 +12,6 @@ public struct ScriptResponse
 	// お金の変化量
 	public int moneyDiff;
 	// ログ保存に関するメッセージ
-	public string saveLogMessage;
 }
 //---------------------------------------------------------------
 
