@@ -1,5 +1,5 @@
 ﻿/*******
- Copyright 2017 FUJITSU CLOUD TECHNOLOGIES LIMITED All Rights Reserved.
+ Copyright 2017-2018 FUJITSU CLOUD TECHNOLOGIES LIMITED All Rights Reserved.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -106,7 +106,7 @@ namespace NCMB
 		/// <summary>E500001　内部エラーです。</summary>
 		public static readonly string SYSTEM_ERROR = "E500001"; 
 
-		/// <summary>E502001　ストレージエラーです。NIFTY Cloud ストレージでエラーが発生した場合のエラーです。</summary>
+		/// <summary>E502001　ストレージエラーです。NIFCLOUD ストレージでエラーが発生した場合のエラーです。</summary>
 		public static readonly string STORAGE_ERROR = "E502001"; 
 
 		/// <summary>E502002　メール送信エラーです。</summary>
@@ -114,6 +114,9 @@ namespace NCMB
 
 		/// <summary>E502003　DBエラーです。</summary>
 		public static readonly string DATABASE_ERROR = "E502003"; 
+
+		/// <summary>E404001　該当データなし</summary>
+		public static readonly string DATA_NOT_FOUND = "E404001";
 
 		/// <summary>コンストラクター。</summary>
 		public NCMBException ()

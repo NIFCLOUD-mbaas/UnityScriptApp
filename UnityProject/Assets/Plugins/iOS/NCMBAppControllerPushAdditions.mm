@@ -1,5 +1,5 @@
 /*******
- Copyright 2017 FUJITSU CLOUD TECHNOLOGIES LIMITED All Rights Reserved.
+ Copyright 2017-2018 FUJITSU CLOUD TECHNOLOGIES LIMITED All Rights Reserved.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -55,6 +55,7 @@
 #import  <UserNotifications/UserNotifications.h>
 #endif
 
+#define MAX_PUSH_DELAY_COUNT 20
 // Converts C style string to NSString
 #define GetStringParam( _x_ ) ( _x_ != NULL ) ? [NSString stringWithUTF8String:_x_] : [NSString stringWithUTF8String:""]
 
@@ -87,6 +88,7 @@ void notifyUnityError(const char * method, NSError * error)
 }
 
 #pragma mark - C#から呼び出し
+extern bool _unityAppReady;
 
 // Native code
 extern "C"
@@ -187,33 +189,33 @@ extern "C"
     void NCMBPushHandle(NSDictionary *userInfo)
     {
         // NCMB Handle Rich Push
-        if ([userInfo.allKeys containsObject:@"com.nifty.RichUrl"])
+        if ([userInfo.allKeys containsObject:@"com.nifcloud.mbaas.RichUrl"])
         {
-            if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
-            {
-                [NCMBRichPushView handleRichPush:userInfo];
-            }
+            [NCMBRichPushView handleRichPush:userInfo];
         }
         
         // NCMB Handle Analytics
-        if ([userInfo.allKeys containsObject:@"com.nifty.PushId"])
+        if ([userInfo.allKeys containsObject:@"com.nifcloud.mbaas.PushId"])
         {
             if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
             {
-                NSString * pushId = [userInfo objectForKey:@"com.nifty.PushId"];
+                NSString * pushId = [userInfo objectForKey:@"com.nifcloud.mbaas.PushId"];
                 const char *pushIdConstChar = [pushId UTF8String];
                 notifyUnityWithClassName("NCMBManager","onAnalyticsReceived",pushIdConstChar);
             }
         }
         
         if([userInfo objectForKey:@"aps"]){
-            if ([[(NSDictionary *)[userInfo objectForKey:@"aps"] objectForKey:@"sound"] isEqual:[NSNull null]]) {
-                NSMutableDictionary *beforeUserInfo = [NSMutableDictionary dictionaryWithDictionary:userInfo];
-                NSMutableDictionary *aps = [NSMutableDictionary dictionaryWithDictionary:[userInfo objectForKey:@"aps"]];
-                [aps removeObjectForKey:@"sound"];
-                [beforeUserInfo setObject:aps forKey:@"aps"];
-                userInfo = (NSMutableDictionary *)beforeUserInfo;
+            NSMutableDictionary *beforeUserInfo = [NSMutableDictionary dictionaryWithDictionary:userInfo];
+            NSMutableDictionary *aps = [NSMutableDictionary dictionaryWithDictionary:[userInfo objectForKey:@"aps"]];
+            [beforeUserInfo setObject:aps forKey:@"aps"];
+            if([[aps objectForKey:@"alert"] objectForKey:@"title"]){
+                [beforeUserInfo setObject:[[aps objectForKey:@"alert"] objectForKey:@"title"] forKey:@"com.nifcloud.mbaas.Title"]; //Titleを追加
             }
+            if([[aps objectForKey:@"alert"] objectForKey:@"body"]){
+                [beforeUserInfo setObject:[[aps objectForKey:@"alert"] objectForKey:@"body"] forKey:@"com.nifcloud.mbaas.Message"]; //Messageを追加
+            }
+            userInfo = (NSMutableDictionary *)beforeUserInfo;
         }
         
         AppController_SendNotificationWithArg(kUnityDidReceiveRemoteNotification, userInfo);
@@ -231,6 +233,7 @@ extern "C"
 
 @implementation UnityAppController(PushAdditions)
 
+NSInteger pushDelayCount = 0;
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -297,17 +300,50 @@ extern "C"
 
 - (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
 {
-    NCMBPushHandle(userInfo);
+    [self handleRichPushIfReady:userInfo];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))handler
 {
-    NCMBPushHandle(userInfo);
+    [self handleRichPushIfReady:userInfo];
     if (handler)
     {
         handler(UIBackgroundFetchResultNoData);
     }
 }
 
+-(void)handleRichPushIfReady:(NSDictionary*)userInfo
+{
+    //Limit to avoid infinite loop
+    if(pushDelayCount < MAX_PUSH_DELAY_COUNT){
+        if(_unityAppReady){
+            //Remove null values (<null>) to avoid crash
+            NSDictionary *notificationInfo = [self removeNullObjects:userInfo];
+            NCMBPushHandle(notificationInfo);
+            pushDelayCount = 0;
+        } else {
+            pushDelayCount++;
+            //Delay for 100 miliseconds
+            [self performSelector:@selector(handleRichPushIfReady:) withObject:userInfo afterDelay:0.1];
+        }
+    }
+}
+
+-(NSDictionary*) removeNullObjects:(NSDictionary*) dictionary {
+    NSMutableDictionary *dict = [dictionary mutableCopy];
+    NSArray *keysForNullValues = [dict allKeysForObject:[NSNull null]];
+    [dict removeObjectsForKeys:keysForNullValues];
+    for(NSString *key in dict.allKeys){
+        if ([[dict valueForKey:key] isKindOfClass:[NSDictionary class]]){
+            NSDictionary *childDict = [self removeNullObjects:[dict valueForKey:key]];
+            if([childDict allKeys].count > 0){
+                [dict setObject:childDict forKey:key];
+            } else {
+                [dict removeObjectForKey:key];
+            }
+        }
+    }
+    return dict;
+}
 
 @end
