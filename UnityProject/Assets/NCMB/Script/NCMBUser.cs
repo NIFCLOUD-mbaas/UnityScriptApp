@@ -225,6 +225,7 @@ namespace  NCMB
 				if (_currentUser != null && _currentUser.ObjectId.Equals(this.ObjectId)) {
 					this.SessionToken = _currentUser.SessionToken;
 					_saveCurrentUser((NCMBUser)this);
+					this._currentOperations.Clear();
 				}
 			}
 		}
