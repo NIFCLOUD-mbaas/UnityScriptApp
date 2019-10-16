@@ -21,7 +21,7 @@ class: center, middle, inverse
 layout: false
 
 ### 概要
-* ニフティクラウド mobile backendの『スクリプト機能』を利用して<br>
+* ニフクラ mobile backendの『スクリプト機能』を利用して<br>
 __`サーバーレスでガチャ機能を実装します`__
 * サーバーレスとは?<br> __`サーバーを用意する必要なく`__ 、アプリ機能を作成できるということです
 
