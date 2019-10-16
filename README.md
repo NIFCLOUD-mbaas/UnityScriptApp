@@ -47,7 +47,7 @@ __`サーバーレスでガチャ機能を実装します`__
 
 ---
 ### 事前準備
-* [ニフティクラウド mobile backend (mBaaS)](http://mbaas.nifcloud.com/signup.htm)の利用登録（無料）
+* [ニフクラ mobile backend (mBaaS)](http://mbaas.nifcloud.com/signup.htm)の利用登録（無料）
 * テキストエディタお持ちでない方はご準備をお願いします
 <br>_Atomエディターはこちらから_ https://atom.io/
 
