@@ -21,18 +21,18 @@ class: center, middle, inverse
 layout: false
 
 ### 概要
-* ニフティクラウド mobile backendの『スクリプト機能』を利用して<br>
+* ニフクラ mobile backendの『スクリプト機能』を利用して<br>
 __`サーバーレスでガチャ機能を実装します`__
 * サーバーレスとは?<br> __`サーバーを用意する必要なく`__ 、アプリ機能を作成できるということです
 
 .center[<img src="readme-image/gacha-app-basic-structure.png" width="700">]
 
 ---
-### [ニフティクラウド mobile backend](http://mb.cloud.nifty.com/about.htm) って何？
+### [ニフクラ mobile backend](http://mbaas.nifcloud.com/about.htm) って何？
 * スマートフォンアプリに必要なバックエンド機能が __`開発不要で利用できる`__ クラウドサービス
 * クラウド上に用意された機能を __`APIを呼び出すだけで利用できます`__
 * __`無料`__で体験頂けます
-* APIを利用するためのSDKは幅広く対応します (iOS / Android / Monaca / Unity)
+* APIを利用するためのSDKは幅広く対応します (Swift / iOS / Android / JavaScript / Monaca / Unity)
 * mobile Backend as a Service の頭文字を取って、通称 __`mBaaS`__ 呼ばれます
 
 .center[<img src="readme-image/mBaaSとは.png" width="500">]
@@ -47,7 +47,7 @@ __`サーバーレスでガチャ機能を実装します`__
 
 ---
 ### 事前準備
-* [ニフティクラウド mobile backend (mBaaS)](http://mb.cloud.nifty.com/signup.htm)の利用登録（無料）
+* [ニフクラ mobile backend (mBaaS)](http://mbaas.nifcloud.com/signup.htm)の利用登録（無料）
 * テキストエディタお持ちでない方はご準備をお願いします
 <br>_Atomエディターはこちらから_ https://atom.io/
 
@@ -84,7 +84,7 @@ class: center, middle, inverse
 layout: false
 ### 【Unityの準備】プロジェクトのダウンロード
 * 以下のURLをクリックしてUnityプロジェクトをダウンロードします
-<br>.size_large[https://github.com/NIFTYCloud-mbaas/UnityScriptApp/archive/master.zip]
+<br>.size_large[https://github.com/NIFCloud-mbaas/UnityScriptApp/archive/master.zip]
 * ダウンロードしたZipファイルを解凍します
 * 解凍した __`UnityScriptApp-master`__ フォルダには以下の2つのサブフォルダがあることを確認してます
     - __`Unity Project`__:  作業対象のプロジェクト本体
@@ -112,14 +112,14 @@ layout: false
 ### 【mBaaSの準備】UnitySDKのダウンロード
 * mBaaSの機能(API)を利用するためにUnity用のSDKをインポートする必要があります
 * 以下のURLをクリックしてSDKのダウンロードページを開きます
-<br>.size_large[https://github.com/NIFTYCloud-mbaas/ncmb_unity/releases]
-* __`Downloads`__欄にある __`NCMB.3.0.1.zip`__ ファイルをクリックしダウンロードします
+<br>.size_large[https://github.com/NIFCloud-mbaas/ncmb_unity/releases]
+* __`Downloads`__欄にある __`NCMB.4.0.1.zip`__ ファイルをクリックしダウンロードします
 
 .center[<img src="readme-image/ncmba-sdk-download-page.PNG" width="450">]
 
 ---
 ### 【mBaaSの準備】UnitySDKのインポート
-* ダウンロードしたSDKの__`NCMB.3.0.1.zip`__ を解凍します
+* ダウンロードしたSDKの__`NCMB.4.0.1.zip`__ を解凍します
 * できたフォルダの中にある__`NCMB.unitypackage`__ファイルをダブルクリックするとUnityのインポート画面が出てきます
 
 .center[<img src="readme-image/sdk-import.png" width="500">]
