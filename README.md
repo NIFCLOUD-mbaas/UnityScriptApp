@@ -84,7 +84,7 @@ class: center, middle, inverse
 layout: false
 ### 【Unityの準備】プロジェクトのダウンロード
 * 以下のURLをクリックしてUnityプロジェクトをダウンロードします
-<br>.size_large[https://github.com/NIFTYCloud-mbaas/UnityScriptApp/archive/master.zip]
+<br>.size_large[https://github.com/NIFCloud-mbaas/UnityScriptApp/archive/master.zip]
 * ダウンロードしたZipファイルを解凍します
 * 解凍した __`UnityScriptApp-master`__ フォルダには以下の2つのサブフォルダがあることを確認してます
     - __`Unity Project`__:  作業対象のプロジェクト本体
@@ -112,7 +112,7 @@ layout: false
 ### 【mBaaSの準備】UnitySDKのダウンロード
 * mBaaSの機能(API)を利用するためにUnity用のSDKをインポートする必要があります
 * 以下のURLをクリックしてSDKのダウンロードページを開きます
-<br>.size_large[https://github.com/NIFTYCloud-mbaas/ncmb_unity/releases]
+<br>.size_large[https://github.com/NIFCloud-mbaas/ncmb_unity/releases]
 * __`Downloads`__欄にある __`NCMB.4.0.1.zip`__ ファイルをクリックしダウンロードします
 
 .center[<img src="readme-image/ncmba-sdk-download-page.PNG" width="450">]
