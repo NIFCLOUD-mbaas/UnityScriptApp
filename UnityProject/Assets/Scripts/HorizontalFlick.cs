@@ -30,7 +30,10 @@ public class HorizontalFlick : MonoBehaviour {
 		
 		yield return new WaitWhile(()=>{return !(GCgenerator.IsInitialized);});
 
-		UICntrler.UpdateGachaText(GCgenerator.GetGachaId(selectedGachaIndex));
+        if (GCgenerator.NumOfGacha > 0) 
+        {
+            UICntrler.UpdateGachaText(GCgenerator.GetGachaId(selectedGachaIndex));
+        }
 
 		enabled = true;
 	}
