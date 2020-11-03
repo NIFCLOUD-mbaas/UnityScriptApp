@@ -18,8 +18,10 @@ public class AutoLogin : MonoBehaviour
 	//---------------------------------------------------------------------------------------------
 	IEnumerator Start ()
 	{
-		// Unity(端末)に保存された `ユーザ名` と `パスワード` を取得 (保存されていない場合は空文字で初期化)
-		string userName = PlayerPrefs.GetString(userNameKey, "");
+        //PlayerPrefs.SetString(userNameKey, "");
+        //PlayerPrefs.SetString(passwordKey, "");
+        // Unity(端末)に保存された `ユーザ名` と `パスワード` を取得 (保存されていない場合は空文字で初期化)
+        string userName = PlayerPrefs.GetString(userNameKey, "");
 		string password = PlayerPrefs.GetString(passwordKey, "");
 
 		// Unityにユーザ情報が保存されているか
