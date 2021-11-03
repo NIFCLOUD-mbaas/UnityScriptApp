@@ -1,5 +1,5 @@
 /*******
- Copyright 2017-2020 FUJITSU CLOUD TECHNOLOGIES LIMITED All Rights Reserved.
+ Copyright 2017-2021 FUJITSU CLOUD TECHNOLOGIES LIMITED All Rights Reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -347,7 +347,7 @@ namespace NCMB
 		#endregion
 
 		/// <summary>
-		/// installation内のオブジェクトで使用出来るクエリを取得します。
+		/// Push内のオブジェクトで使用出来るクエリを取得します。
 		/// </summary>
 		/// <returns> クエリ</returns>
 		public static NCMBQuery<NCMBPush> GetQuery ()
