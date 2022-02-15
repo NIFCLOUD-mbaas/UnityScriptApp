@@ -3,7 +3,7 @@
 ## 遊び方
 * 各手順の詳しい解説は、[チュートリアル ドキュメント](https://nifcloud-mbaas.github.io/UnityScriptApp/#1)をご参照ください
 1. UnityプロジェクトおよびNode.jsファイルを以下のリンクよりダウンロードします
-    + [ダウンロード(zip)](https://codeload.github.com/NIFCloud-mbaas/UnityScriptApp/zip/release/201910)
+    + [ダウンロード(zip)](https://codeload.github.com/NIFCloud-mbaas/UnityScriptApp/zip/release/202010)
 1. Unityでの設定
     1. ダウンロードしたzipフォルダを解凍し、"UnityScriptApp"フォルダ内の"UnityProject"をUnityで開きます
     1. gachaシーンを開きます
