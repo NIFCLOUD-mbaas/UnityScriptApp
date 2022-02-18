@@ -3,4 +3,10 @@
 ▼資料はこちら▼<br>https://nifcloud-mbaas.github.io/UnityScriptApp/#1
 
 ▼完成版はこちら▼<br>
-https://github.com/NIFCloud-mbaas/UnityScriptApp/tree/release/201910
+https://github.com/NIFCloud-mbaas/UnityScriptApp/tree/release/202010
+
+# 動作環境
+
+* MacOS Big Sur v11.6 (20G165)
+* Unity 2020.3.20f1 (LTS)
+* Unity SDK v4.4.1
