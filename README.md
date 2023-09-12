@@ -3,7 +3,7 @@
 ## 遊び方
 * 各手順の詳しい解説は、[チュートリアル ドキュメント](https://nifcloud-mbaas.github.io/UnityScriptApp/#1)をご参照ください
 1. UnityプロジェクトおよびNode.jsファイルを以下のリンクよりダウンロードします
-    + [ダウンロード(zip)](https://codeload.github.com/NIFCloud-mbaas/UnityScriptApp/zip/release/202010)
+    + [ダウンロード(zip)](https://codeload.github.com/NIFCloud-mbaas/UnityScriptApp/zip/release/2023)
 1. Unityでの設定
     1. ダウンロードしたzipフォルダを解凍し、"UnityScriptApp"フォルダ内の"UnityProject"をUnityで開きます
     1. gachaシーンを開きます
@@ -23,3 +23,12 @@
         + 別のmBaaSアプリと連携した別のUnityプロジェクトでプレビュー再生をし、
         + 且つ、上記のプロジェクトにおいて、`deleteCurrentUserCache`を実行していない
     * mBaaSのセッショントークンに関する問題ですが、一度停止して再生しなおせばエラーは解消されます
+
+# 動作環境
+
+* Mac OS 13.4.1 (Venture)
+* Unity 2022.2.19f1 (LTS)
+* Xcode Version 15.0
+* iPhone SE (iOS 17)
+* Pixel 2 - Android 13 (Simulator)
+* Unity SDK v5.1.1
