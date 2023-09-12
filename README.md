@@ -32,3 +32,4 @@
 * iPhone SE (iOS 17)
 * Pixel 2 - Android 13 (Simulator)
 * Unity SDK v5.1.1
+
