@@ -7,7 +7,10 @@ https://github.com/NIFCloud-mbaas/UnityScriptApp/tree/release/202010
 
 # 動作環境
 
-* MacOS Monterey version 12.5 
+* Mac OS 12.5.1 (Monterey)
 * Unity 2020.3.20f1 (LTS)
+* Xcode Version 14.0
+* iPhone X (iOS 16)
 * Pixel 2 - Android 13 (Simulator)
 * Unity SDK v4.4.2
+
