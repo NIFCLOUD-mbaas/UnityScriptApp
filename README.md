@@ -11,4 +11,6 @@ https://github.com/NIFCloud-mbaas/UnityScriptApp/tree/release/202010
 * Unity 2020.3.20f1 (LTS)
 * Xcode Version 14.0
 * iPhone X (iOS 16)
-* Unity SDK v4.4.1
+* Pixel 2 - Android 13 (Simulator)
+* Unity SDK v4.4.2
+
