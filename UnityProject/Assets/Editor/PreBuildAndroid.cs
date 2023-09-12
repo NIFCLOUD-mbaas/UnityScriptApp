@@ -2,14 +2,15 @@
 
 using UnityEditor;
 using UnityEditor.Build;
+using UnityEditor.Build.Reporting;
 using UnityEngine;
 using System.IO;
 using SimpleJSON;
 
-class PreBuildAndroid : IPreprocessBuild
+class PreBuildAndroid : IPreprocessBuildWithReport
 {
     public int callbackOrder { get { return 0; } }
-    public void OnPreprocessBuild(BuildTarget target, string path)
+    public void OnPreprocessBuild(BuildReport report)
     {
         string androidPath = Application.dataPath + "/Plugins/Android";
         string gsJsonPath = androidPath + "/google-services.json";
@@ -23,7 +24,7 @@ class PreBuildAndroid : IPreprocessBuild
         //Covert google json to xml 
         string gsXml = parseGoogleJsonToXml(gsJson);
 
-        string valuesFolder = androidPath + "/res/values";
+        string valuesFolder = androidPath + "/ncmb.androidlib/res/values";
         if (!Directory.Exists(valuesFolder))
         {
             Directory.CreateDirectory(valuesFolder);

@@ -1,5 +1,5 @@
 ﻿/*******
- Copyright 2017-2021 FUJITSU CLOUD TECHNOLOGIES LIMITED All Rights Reserved.
+ Copyright 2017-2023 FUJITSU CLOUD TECHNOLOGIES LIMITED All Rights Reserved.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ namespace NCMB
     [NCMBClassName("appleParameters")]
     public class NCMBAppleParameters
     {
-        internal Dictionary<string, object> param = new Dictionary<string, object> ();
+        public Dictionary<string, object> param = new Dictionary<string, object> ();
 
         public NCMBAppleParameters(string userId, string accessToken, string clientId)
         {
@@ -45,4 +45,3 @@ namespace NCMB
         }
     }
 }
-
