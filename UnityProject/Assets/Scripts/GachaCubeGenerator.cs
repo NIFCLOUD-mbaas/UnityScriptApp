@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NCMB;
 
+// データストアからガチャを取得してキューブオブジェクトを生成するクラス
 public class GachaCubeGenerator : MonoBehaviour
 {
 	// ガチャキューブオブジェクト同士の間隔
@@ -66,7 +67,7 @@ public class GachaCubeGenerator : MonoBehaviour
 		// データ取得処理が終了するまで以下の行でストップ
 		yield return new WaitWhile(()=>{return isGettingGachaData;});
 
-		// ガチャの読み込みは終了しました
+		// ガチャの読み込み終了
 		isInitialized = true;
 	}
 
@@ -76,7 +77,7 @@ public class GachaCubeGenerator : MonoBehaviour
 	public GameObject gachaCubePrefab;
 	private void createGachaCube(Vector3 posOffset, NCMBObject gacha, uint gachaNum)
 	{
-		// プレファブから新たにオブジェクトを生成 (位置と回転も指定)
+		// プレファブから新たにオブジェクトを生成 (位置と回転を指定)
 		Vector3 pos = transform.position + posOffset;
 		GameObject gachaCube = (GameObject)Instantiate(
 			gachaCubePrefab, pos, transform.rotation
@@ -84,14 +85,14 @@ public class GachaCubeGenerator : MonoBehaviour
 		// 生成されたオブジェクトに名前を設定
 		gachaCube.name = "GachaCube" + gachaNum.ToString();
 
-		// ガチャの各プロパティの取得
+		// ガチャの各フィールドの取得
 		uint cost = System.Convert.ToUInt32(gacha["cost"]);
 		ArrayList rewards_arrayList = (ArrayList)gacha["rewards"];
 		List<uint> rewards = new List<uint>();
 		foreach(object reward in rewards_arrayList){
 			rewards.Add(System.Convert.ToUInt32(reward));
 		}
-		// ガチャの各プロパティを設定(ガチャのプロパティを保持するクラスのメソッド)
+		// 各プロパティをGachaクラスで管理する
 		gachaCube.GetComponent<Gacha>().InitGachaCube(gacha.ObjectId, cost, rewards, gachaNum);
 
 		// ガチャIDリストにIDを追加

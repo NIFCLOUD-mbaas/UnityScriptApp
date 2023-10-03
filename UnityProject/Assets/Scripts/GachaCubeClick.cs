@@ -4,18 +4,17 @@ using UnityEngine;
 using NCMB;
 
 //---------------------------------------------------------------
-// スクリプトからのJSON形式のレスポンスを受け取るための構造体を定義
+// スクリプトからのJSON形式のレスポンスをパースして保持するための構造体
 public struct ScriptResponse
 {
 	// ポイントの変化量
 	public int pointDiff;
 	// お金の変化量
 	public int moneyDiff;
-	// ログ保存に関するメッセージ
-	public string saveLogMessage;
 }
 //---------------------------------------------------------------
 
+// キューブオブジェクトがクリックされた際の処理を扱うクラス
 public class GachaCubeClick : MonoBehaviour
 {
 	// クリックされたキューブオブジェクトを保持
@@ -24,6 +23,9 @@ public class GachaCubeClick : MonoBehaviour
 	// スクリプトからのレスポンスを保持
 	private ScriptResponse scriptResponse;
 
+	// UIの制御
+	private UIController uiCntrler;
+
 	//---------------------------------------------------------------------------------------------
 	// アプリ起動時に呼ばれる関メソッド(初期化)
 	//---------------------------------------------------------------------------------------------
@@ -31,6 +33,7 @@ public class GachaCubeClick : MonoBehaviour
 	{
 		clickedGachaCube = null;
 		scriptResponse = new ScriptResponse();
+		uiCntrler = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIController>();
 	}
 
 	//---------------------------------------------------------------------------------------------
@@ -80,10 +83,7 @@ public class GachaCubeClick : MonoBehaviour
 			// クリックされたキューブの回転を制御するコンポーネント
 			CubeRotationController cubeRotCntrler = clickedGachaCube.GetComponent<CubeRotationController>();
 			// クリックされたと伝える（回転速度が変化し始め，最終的に止まる）
-			cubeRotCntrler.ClickedFlagOn();
-			
-			// UI をコントロールするコンポーネント
-			UIController uiCntrler = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIController>();
+			cubeRotCntrler.startDynamicRot();
 
 			// "Cost: XXX" を表示する テキスト オブジェクトを非表示にする
 			uiCntrler.EnableCostText(false);
@@ -98,7 +98,7 @@ public class GachaCubeClick : MonoBehaviour
 				// 該当ユーザのログを取得
 				yield return StartCoroutine(LogController.GetLog(currUser.ObjectId));
 			} else {
-				// 出るはずはないメッセージ
+				// 出るはずはないエラーメッセージ
 				Debug.Log("Failed to roll Gacha(No Current User)");
 			}
 
@@ -128,7 +128,7 @@ public class GachaCubeClick : MonoBehaviour
 			// キューブを再び回転させる
 			cubeRotCntrler.RotatingFlagOn();
 		}
-		// ガチャを回し終えた
+		// ガチャを回す処理終了
 		clickedGachaCube = null;
 		isRollingGacha = false;
 	}
@@ -138,16 +138,32 @@ public class GachaCubeClick : MonoBehaviour
 	//---------------------------------------------------------------------------------------------	
 	private IEnumerator executeGachaLogicScriptCoroutine(string gachaId, NCMBObject currUser)
 	{
-		// (1) スクリプトからのレスポンスを格納するメンバ変数の初期化
+		// scriptResponse 初期化
+		scriptResponse.pointDiff = 0;
+		scriptResponse.moneyDiff = 0;
 
-		// (2) NCMBScriptクラスのインスタンスを生成する
-		
-		// (3) スクリプトに渡すクエリを設定する
-		
-		// (4) スクリプトを実行する
-
-		// (5) スクリプト処理終了まで待機する
-		yield return null;
+		// 実行するファイル名とリクエストのタイプでインスタンス生成
+		NCMBScript gachaLogicScript = new NCMBScript("gacha.js", NCMBScript.MethodType.GET);
+		// スクリプトに渡すクエリ（ガチャのIDとユーザID）を設定する
+		Dictionary<string, object> query = new Dictionary<string, object> (){ 
+														{"gachaId", gachaId},
+														{"userId", currUser.ObjectId} };
+		// スクリプトを実行する
+		bool isCalculating = true;
+		gachaLogicScript.ExecuteAsync(null, null, query, (byte[] result, NCMBException e) => {
+			if(e != null){
+				// スクリプト実行失敗
+				Debug.Log(e.ErrorCode +":"+ e.ErrorMessage);
+			}else{
+				// スクリプト実行成功(JSONパース（byte[] -> string -> ScriptResponse)
+				string resultStr = System.Text.Encoding.ASCII.GetString(result);
+				scriptResponse = JsonUtility.FromJson<ScriptResponse>(resultStr);
+			}
+			// スクリプト処理終了
+			isCalculating = false;
+		});
+		// スクリプトでの処理が終了するまで待機する
+		yield return new WaitWhile(()=>{return isCalculating;});
 	}
 
 	//---------------------------------------------------------------------------------------------

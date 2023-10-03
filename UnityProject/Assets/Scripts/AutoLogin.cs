@@ -10,24 +10,24 @@ public class AutoLogin : MonoBehaviour
 	// 初期所持金額
 	private const int initialMoney = 30000;
 
+	private const string userNameKey = "_user_name_";
+	private const string passwordKey = "_pass_word_";
+
 	//---------------------------------------------------------------------------------------------
 	// アプリ起動時に呼ばれるメソッド (オートログイン)
 	//---------------------------------------------------------------------------------------------
 	IEnumerator Start ()
 	{
-		// 以下の２行はデバッグ用 (Unityに保存された_user_name_と_pass_word_を削除する)
-		//PlayerPrefs.SetString("_user_name_", "");
-		//PlayerPrefs.SetString("_pass_word_", "");
-		
-		// UnityのウィンドウのNCMBタブからCurrentUserをクリアする (ログアウト状態になる，NCMB3.0からの機能)ことができる
-
-		// Unity(端末)に保存された `ユーザ名` と `パスワード` を取得 (保存されていない場合は空文字で初期化)
-		string userName = PlayerPrefs.GetString("_user_name_", "");
-		string password = PlayerPrefs.GetString("_pass_word_", "");
+        //PlayerPrefs.SetString(userNameKey, "");
+        //PlayerPrefs.SetString(passwordKey, "");
+        // Unity(端末)に保存された `ユーザ名` と `パスワード` を取得 (保存されていない場合は空文字で初期化)
+        string userName = PlayerPrefs.GetString(userNameKey, "");
+		string password = PlayerPrefs.GetString(passwordKey, "");
 
 		// Unityにユーザ情報が保存されているか
 		if(userName == ""){
 			// 保存なし -> ユーザ登録処理
+			Debug.Log("No User Info on Unity");
 			yield return StartCoroutine(userRegistrationCoroutine());
 
 		}else{
@@ -94,8 +94,8 @@ public class AutoLogin : MonoBehaviour
 					isSuccess = true;
 					Debug.Log("Succeeded to registrate");
 					// Unity(端末)に情報を設定
-					PlayerPrefs.SetString("_user_name_", user.UserName);
-					PlayerPrefs.SetString("_pass_word_", password);
+					PlayerPrefs.SetString(userNameKey, user.UserName);
+					PlayerPrefs.SetString(passwordKey, password);
 				}
 				// ユーザ登録処理（１ループ）終了
 				isConnecting = false;
